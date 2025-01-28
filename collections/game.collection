@@ -8,3 +8,30 @@ embedded_instances {
   "}\n"
   ""
 }
+embedded_instances {
+  id: "player"
+  data: "components {\n"
+  "  id: \"movement\"\n"
+  "  component: \"/scripts/player/movement.script\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"player\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"logo_256\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/assets/atlasses/player.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "  scale {\n"
+  "    x: 0.5\n"
+  "    y: 0.5\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: 653.0
+    y: 322.0
+  }
+}

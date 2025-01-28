@@ -1,11 +1,12 @@
+script: "/scripts/gui/game.gui_script"
 fonts {
   name: "default"
   font: "/builtins/fonts/default.font"
 }
 nodes {
   position {
-    x: 633.0
-    y: 320.0
+    x: 1180.0
+    y: 670.0
   }
   scale {
     x: 2.0
@@ -16,9 +17,9 @@ nodes {
     y: 50.0
   }
   type: TYPE_TEXT
-  text: "GAME SCENE"
+  text: "x:0  y:0"
   font: "default"
-  id: "text"
+  id: "location"
   inherit_alpha: true
 }
 material: "/builtins/materials/gui.material"
