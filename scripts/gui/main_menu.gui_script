@@ -1,3 +1,5 @@
+require 'modules.switch'
+
 local play = nil
 
 local function init_gui()
@@ -6,34 +8,19 @@ end
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
-	init_gui()
-end
-
-function final(self)
-	-- Add finalization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
-
-function update(self, dt)
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	init_gui() -- Initialize GUI variables
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("proxy_loaded") then
-		msg.post(sender, "init")
-		msg.post(sender, "enable")
-		msg.post("main:/go#main_menu", "disable")
+		switch.change("main:/go#main_menu", sender)
 	end
 end
 
 function on_input(self, action_id, action)
-	if action_id == hash("touch") and action.pressed then
-		if gui.pick_node(play, action.x, action.y) then
-			pprint("button pressed")
-			msg.post("main:/go#game", "load")
+	if action_id == hash("touch") and action.pressed then -- Detect mouse press
+		if gui.pick_node(play, action.x, action.y) then -- Check touch location
+			msg.post("main:/go#game", "load") -- Start loading new scene
 		end
 	end
 end

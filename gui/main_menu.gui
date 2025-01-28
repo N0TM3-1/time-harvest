@@ -31,7 +31,7 @@ nodes {
     y: 50.0
   }
   type: TYPE_TEXT
-  text: "TITLE"
+  text: "Time Harvest"
   font: "default"
   id: "title"
   inherit_alpha: true
