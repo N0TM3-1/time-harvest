@@ -1,6 +1,6 @@
 # Time Harvest
 
-Welcome to the **Time Harvest** GitHub repository! This project is a simple yet engaging farming game with a time-traveling twist. Players start with basic tools and farming techniques, progressing through different eras to unlock advanced equipment, crops, and challenges.
+[![wakatime](https://wakatime.com/badge/user/50b028ab-fbf7-496a-a510-559cbb50bd40/project/5914416d-f399-4122-947c-bbf7c0d52a1b.svg)](https://wakatime.com/badge/user/50b028ab-fbf7-496a-a510-559cbb50bd40/project/5914416d-f399-4122-947c-bbf7c0d52a1b)
 
 ## Overview
 
