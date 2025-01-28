@@ -1,7 +1,9 @@
 local pos = nil
+local zoom = nil
 
 local function init_gui()
 	pos = gui.get_node("location")
+	zoom = gui.get_node("zoom")
 end
 
 function init(self)
@@ -23,6 +25,9 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("position") then
 		gui.set_text(pos, "x:"..message.x.." y:"..message.y)
+	end
+	if message_id == hash("zoom") then
+		gui.set_text(zoom, "Camera zoom:" .. message[1])
 	end
 end
 
