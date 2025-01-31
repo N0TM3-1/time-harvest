@@ -1,6 +1,6 @@
 require 'modules.switch'
 
-local play = nil
+local play
 
 local function init_gui()
 	play = gui.get_node("play")

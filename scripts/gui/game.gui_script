@@ -1,6 +1,6 @@
-local pos = nil
-local zoom = nil
-local speed = nil
+local pos
+local zoom
+local speed
 
 local function init_gui()
 	pos = gui.get_node("location")

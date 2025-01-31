@@ -81,8 +81,8 @@ function update(self, dt)
 	pos_gui.y = math.floor(go.get_position().y)
 	msg.post("/gui#game", "position", pos_gui)
 	-- Send speed to GUI
-	local speed = math.floor(math.sqrt((velocity.x*velocity.x)+(velocity.y*velocity.y)))
-	msg.post("/gui#game", "speed", {speed})
+	local speed = math.floor(math.sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y)))
+	msg.post("/gui#game", "speed", { speed })
 end
 
 local function update_key_press(var_table, key_name, action)
