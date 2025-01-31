@@ -24,7 +24,6 @@ In **Time Harvest**, players embark on a farming journey that spans across eras.
 My goal is to create an immersive, languageless farming game that is:
 1. **Simple to Learn:** Easy mechanics that are intuitive for beginners.
 2. **Engaging:** Era progression and exploration keep the gameplay fresh.
-3. **Accessible:** A visually rich experience that doesn’t rely on text or language.
 
 ###### ChatGPT For The Win
 ---
