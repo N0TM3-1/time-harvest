@@ -1,7 +1,4 @@
 # Time Harvest
-
-[![wakatime](https://wakatime.com/badge/user/50b028ab-fbf7-496a-a510-559cbb50bd40/project/5914416d-f399-4122-947c-bbf7c0d52a1b.svg)](https://wakatime.com/badge/user/50b028ab-fbf7-496a-a510-559cbb50bd40/project/5914416d-f399-4122-947c-bbf7c0d52a1b)
-
 ## Overview
 
 In **Time Harvest**, players embark on a farming journey that spans across eras. Starting in a primitive era, you'll evolve your farming methods, tools, and techniques as you collect "time fragments" to unlock new historical and futuristic periods. Each era offers unique resources and opportunities to expand your farm and become the ultimate farmer of all time.
