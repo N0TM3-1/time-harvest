@@ -46,6 +46,16 @@ local function select_slot(action_id)
     end
 end
 
+local function shift_inv(inventory)
+    for i = 2, #inventory do
+        if inventory[i - 1].id == 0 then
+            inventory[i - 1] = inventory[i]  -- Move item up
+            inventory[i] = {id = 0, num = 0} -- Clear old slot
+        end
+    end
+end
+
+
 function init(self)
     msg.post(".", "acquire_input_focus")
     for i=1, 9 do
@@ -68,6 +78,15 @@ function on_message(self, message_id, message, sender)
     if message_id == hash("used") then
         item[message[1]].num = item[message[1]].num - 1
     end
+    if message_id == hash("add") then
+        for k,v in pairs(item) do
+            if v.id == 0 or v.id == message[1] then
+                v.id = message[1]
+                v.num = v.num + message[2]
+                break
+            end
+        end
+    end
 end
 
 function update(self, dt)
@@ -77,4 +96,5 @@ function update(self, dt)
         end
     end
     broadcast()
+    shift_inv(item)
 end

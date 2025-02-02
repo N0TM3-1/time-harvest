@@ -25,6 +25,17 @@ local function change_item(id, number, slot_num) -- TODO: Change ID system
 	gui.set_text(label[slot_num], tostring(number))
 end
 
+local function hide_number()
+	for k,v in pairs(label) do
+		local text = gui.get_text(v)
+		if tonumber(text) <= 1 then
+			gui.set_visible(v, false)
+		else
+			gui.set_visible(v, true)
+		end
+	end
+end
+
 function init(self)
 	msg.post(".", "acquire_input_focus")
 	init_gui()
@@ -39,6 +50,7 @@ function update(self, dt)
 	local pos = gui.get_position(slot[select])
 	pos.y = 120
 	gui.set_position(slot[select], pos)
+	hide_number()
 end
 
 function on_message(self, message_id, message, sender)

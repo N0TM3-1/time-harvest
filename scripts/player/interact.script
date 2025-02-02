@@ -8,29 +8,24 @@ local select_id
 local function plant(x, y, z)
 	if select_id == 1 then
 		tx, ty, tz = convert.world_to_tile(x, y, 32)
-	msg.post("/map#tilemap", "planted", {tx, ty})
-	msg.post("#inventory", "used", {select})
+		if tilemap.get_tile("/map#farm", "bg", tx, ty) <= 3 then
+			msg.post("/map#tilemap", "planted", {tx, ty})
+			msg.post("#inventory", "used", {select})
+		end
+	end
+end
+
+local function harvest(x, y, z)
+	tx, ty, tz = convert.world_to_tile(x, y, 32)
+	if tilemap.get_tile("/map#farm", "bg", tx, ty) == 6 then
+		msg.post("/map#tilemap", "harvest", {tx, ty})
+		msg.post("#inventory", "add", {2, 1})-- IMPORTANT message[1]:item ID; message[2]: item number
 	end
 end
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
 	msg.post("#inventory", "require")
-end
-
-function update(self, dt)
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
-
-function fixed_update(self, dt)
-	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
-	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
-	-- Physics section of game.project
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
 end
 
 function on_message(self, message_id, message, sender)
@@ -45,6 +40,7 @@ end
 function on_input(self, action_id, action)
 	if action_id == hash("touch") and action.pressed then
 		plant(convert.screen_to_world(action.x, action.y, action.x, "/camera#camera"))
+		harvest(convert.screen_to_world(action.x, action.y, action.x, "/camera#camera"))
 	end
 end
 
