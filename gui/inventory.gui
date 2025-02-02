@@ -1,4 +1,8 @@
 script: "/scripts/gui/inventory.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
 textures {
   name: "inventory"
   texture: "/assets/atlasses/inventory.atlas"
@@ -20,6 +24,26 @@ nodes {
 }
 nodes {
   position {
+    x: 11.333333
+    y: 11.333334
+  }
+  scale {
+    x: 0.3
+    y: 0.3
+  }
+  size {
+    x: 30.0
+    y: 30.0
+  }
+  type: TYPE_TEXT
+  text: "0"
+  font: "default"
+  id: "num1"
+  parent: "inv_1"
+  inherit_alpha: true
+}
+nodes {
+  position {
     x: 285.0
     y: 100.0
   }
@@ -32,6 +56,26 @@ nodes {
   id: "inv_2"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 11.333333
+    y: 11.333333
+  }
+  scale {
+    x: 0.3
+    y: 0.3
+  }
+  size {
+    x: 30.0
+    y: 30.0
+  }
+  type: TYPE_TEXT
+  text: "0"
+  font: "default"
+  id: "num2"
+  parent: "inv_2"
+  inherit_alpha: true
 }
 nodes {
   position {
@@ -50,6 +94,26 @@ nodes {
 }
 nodes {
   position {
+    x: 11.333333
+    y: 11.333333
+  }
+  scale {
+    x: 0.3
+    y: 0.3
+  }
+  size {
+    x: 30.0
+    y: 30.0
+  }
+  type: TYPE_TEXT
+  text: "0"
+  font: "default"
+  id: "num3"
+  parent: "inv_3"
+  inherit_alpha: true
+}
+nodes {
+  position {
     x: 505.0
     y: 100.0
   }
@@ -62,6 +126,26 @@ nodes {
   id: "inv_4"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 11.333333
+    y: 11.333333
+  }
+  scale {
+    x: 0.3
+    y: 0.3
+  }
+  size {
+    x: 30.0
+    y: 30.0
+  }
+  type: TYPE_TEXT
+  text: "0"
+  font: "default"
+  id: "num4"
+  parent: "inv_4"
+  inherit_alpha: true
 }
 nodes {
   position {
@@ -80,6 +164,26 @@ nodes {
 }
 nodes {
   position {
+    x: 11.333333
+    y: 11.333333
+  }
+  scale {
+    x: 0.3
+    y: 0.3
+  }
+  size {
+    x: 30.0
+    y: 30.0
+  }
+  type: TYPE_TEXT
+  text: "0"
+  font: "default"
+  id: "num5"
+  parent: "inv_5"
+  inherit_alpha: true
+}
+nodes {
+  position {
     x: 725.0
     y: 100.0
   }
@@ -92,6 +196,26 @@ nodes {
   id: "inv_6"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 11.333333
+    y: 11.333333
+  }
+  scale {
+    x: 0.3
+    y: 0.3
+  }
+  size {
+    x: 30.0
+    y: 30.0
+  }
+  type: TYPE_TEXT
+  text: "0"
+  font: "default"
+  id: "num6"
+  parent: "inv_6"
+  inherit_alpha: true
 }
 nodes {
   position {
@@ -110,6 +234,26 @@ nodes {
 }
 nodes {
   position {
+    x: 11.333333
+    y: 11.333333
+  }
+  scale {
+    x: 0.3
+    y: 0.3
+  }
+  size {
+    x: 30.0
+    y: 30.0
+  }
+  type: TYPE_TEXT
+  text: "0"
+  font: "default"
+  id: "num7"
+  parent: "inv_7"
+  inherit_alpha: true
+}
+nodes {
+  position {
     x: 945.0
     y: 100.0
   }
@@ -125,6 +269,26 @@ nodes {
 }
 nodes {
   position {
+    x: 11.333333
+    y: 11.333333
+  }
+  scale {
+    x: 0.3
+    y: 0.3
+  }
+  size {
+    x: 30.0
+    y: 30.0
+  }
+  type: TYPE_TEXT
+  text: "0"
+  font: "default"
+  id: "num8"
+  parent: "inv_8"
+  inherit_alpha: true
+}
+nodes {
+  position {
     x: 1055.0
     y: 100.0
   }
@@ -137,6 +301,26 @@ nodes {
   id: "inv_9"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 11.333333
+    y: 11.333333
+  }
+  scale {
+    x: 0.3
+    y: 0.3
+  }
+  size {
+    x: 30.0
+    y: 30.0
+  }
+  type: TYPE_TEXT
+  text: "0"
+  font: "default"
+  id: "num9"
+  parent: "inv_9"
+  inherit_alpha: true
 }
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT
