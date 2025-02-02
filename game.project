@@ -18,6 +18,7 @@ scale_mode = stretch
 [project]
 title = Time Harvest
 version = DEV 0.1
+dependencies#0 = https://github.com/whiteboxdev/library-defold-persist/archive/main.zip
 
 [graphics]
 default_texture_min_filter = nearest
