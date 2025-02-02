@@ -9,10 +9,10 @@ function on_input(self, action_id, action)
 	local zoom = go.get("#camera", "orthographic_zoom")
 	if action_id == hash("up") and zoom < self.MAX_ZOOM and action.value == 1 then
 		go.set("#camera", "orthographic_zoom", zoom + 1)
-		msg.post("/gui#game", "zoom", { zoom + 1 })
+		msg.post("/gui#debug", "zoom", { zoom + 1 })
 	end
 	if action_id == hash("down") and zoom > self.MIN_ZOOM and action.value == 1 then
 		go.set("#camera", "orthographic_zoom", zoom - 1)
-		msg.post("/gui#game", "zoom", { zoom - 1 })
+		msg.post("/gui#debug", "zoom", { zoom - 1 })
 	end
 end

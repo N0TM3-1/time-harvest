@@ -57,5 +57,24 @@ nodes {
   id: "title"
   inherit_alpha: true
 }
+nodes {
+  position {
+    x: 624.0
+    y: 122.0
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "#time-harvest on Slack"
+  font: "default"
+  id: "text1"
+  inherit_alpha: true
+}
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT

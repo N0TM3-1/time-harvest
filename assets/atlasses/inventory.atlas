@@ -1,0 +1,10 @@
+images {
+  image: "/assets/sprites/items/frame.png"
+}
+images {
+  image: "/assets/sprites/items/seeds.png"
+}
+images {
+  image: "/assets/sprites/items/wheat.png"
+}
+extrude_borders: 2
