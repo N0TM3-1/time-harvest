@@ -15,6 +15,10 @@ local function update_state()
 	update_map()
 end
 
+function init(self)
+	msg.post("/time#time", "req_time")
+end
+
 function on_message(self, message_id, message, sender)
 	if message_id == hash("planted") then
 		table.insert(planted, {x = message[1], y=message[2], state = 1})
