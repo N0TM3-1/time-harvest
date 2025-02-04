@@ -1,9 +1,12 @@
+local persist = require 'persist.persist'
+
 local planted = {}
 
 local function update_map()
 	for k, v in pairs(planted) do
 		tilemap.set_tile("#farm", "bg", v.x, v.y, v.state+3)
 	end
+	persist.create("planted", planted, true) --IMPORTANT: Possible problems in the future
 end
 
 local function update_state()
@@ -17,6 +20,12 @@ end
 
 function init(self)
 	msg.post("/time#time", "req_time")
+	if not persist.exists("planted") then
+		persist.create("planted", planted, false) 
+	else
+		planted = persist.load("planted") --IMPORTANT: Possible problems in the future
+		update_map()
+	end
 end
 
 function on_message(self, message_id, message, sender)
@@ -25,7 +34,7 @@ function on_message(self, message_id, message, sender)
 		update_map()
 	end
 	if message_id == hash("harvest") then
-		tilemap.set_tile("#farm", "bg", message[1], message[2], 3)
+		tilemap.set_tile("#farm", "bg", message[1], message[2], 2)
 		for k, v in pairs(planted) do
 			if v.x == message[1] and v.y == message[2] then
 				table.remove(planted, k)
@@ -35,4 +44,5 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("tick") then
 		update_state()
 	end
+	persist.create("planted", planted, true) --IMPORTANT: Possible problems in the future
 end
