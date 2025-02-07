@@ -17,7 +17,7 @@ scale_mode = stretch
 
 [project]
 title = Time Harvest
-version = DEV 0.1
+version = 0.1V
 dependencies#0 = https://github.com/whiteboxdev/library-defold-persist/archive/main.zip
 
 [graphics]
