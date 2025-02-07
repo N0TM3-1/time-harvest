@@ -81,8 +81,22 @@ function on_message(self, message_id, message, sender)
     if message_id == hash("require") then
         table.insert(urls, sender)
     end
-    if message_id == hash("used") then
-        item[message[1]].num = item[message[1]].num - 1
+    if message_id == hash("remove") then
+        if message[2] == nil then
+            for k, v in pairs(item) do
+                if v.id == message[1] then
+                    v.num = v.num-1
+                    break
+                end
+            end
+        else
+            for k, v in pairs(item) do
+                if v.id == message[1] then
+                    v.num = v.num-message[2]
+                    break
+                end
+            end
+        end
     end
     if message_id == hash("add") then
         for k,v in pairs(item) do
@@ -92,6 +106,15 @@ function on_message(self, message_id, message, sender)
                 break
             end
         end
+    end
+    if message_id == hash("get") then
+        local count = 0
+        for k,v in pairs(item) do
+            if v.id == message[1] then
+                count = count + v.num
+            end
+        end
+        msg.post(sender, "count_res", {count})
     end
     persist.create("inventory", item, true) --IMPORTANT: Possible problems in the future
 end

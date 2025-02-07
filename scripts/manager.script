@@ -1,0 +1,26 @@
+local scene = "main" -- Current scene
+
+function init(self)
+    msg.post(".", "acquire_input_focus")
+    msg.post("/gui#shop", "disable")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("e") and action.pressed then
+        if scene == "main" then
+            msg.post("/gui", "disable")
+            msg.post("/gui#shop", "enable")
+            scene = "shop"
+        elseif scene == "shop" then
+            msg.post("/gui", "enable")
+            msg.post("/gui#shop", "disable")
+            scene = "main"
+        end
+    end
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("get_scene") then
+        msg.post(sender, "scene", {scene})
+    end
+end

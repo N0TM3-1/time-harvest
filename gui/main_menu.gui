@@ -71,7 +71,7 @@ nodes {
     y: 100.0
   }
   type: TYPE_TEXT
-  text: "#time-harvest on Slack"
+  text: "#this-is-dumi on Slack"
   font: "default"
   id: "text1"
   inherit_alpha: true

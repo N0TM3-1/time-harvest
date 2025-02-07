@@ -62,4 +62,15 @@ function on_message(self, message_id, message, sender)
 			change_item(message[i].id, message[i].num, i)
 		end
 	end
+
+	if message_id == hash("enable") then
+		for k, v in pairs(slot) do
+			gui.set_enabled(v, true)
+		end
+	end
+	if message_id == hash("disable") then
+		for k, v in pairs(slot) do
+			gui.set_enabled(v, false)
+		end
+	end
 end

@@ -5,12 +5,18 @@ local tx, ty, tz -- Tile x, Tile y, Tile z
 local select
 local select_id
 
+local scene
+
 local function plant(x, y, z)
+	tx, ty, tz = convert.world_to_tile(x, y, 32)
 	if select_id == 1 then
-		tx, ty, tz = convert.world_to_tile(x, y, 32)
 		if tilemap.get_tile("/map#farm", "bg", tx, ty) <= 3 then
 			msg.post("/map#tilemap", "planted", {tx, ty})
-			msg.post("#inventory", "used", {select})
+			msg.post("#inventory", "remove", {select})
+		end
+	else
+		if tilemap.get_tile("/map#farm", "bg", tx, ty) <= 3 then
+			msg.post("/map#tilemap", "till", {tx, ty})
 		end
 	end
 end
@@ -35,10 +41,14 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("select_id") then
 		select_id = message[1]
 	end
+	if message_id == hash("scene") then
+		scene = message[1]
+	end
 end
 
 function on_input(self, action_id, action)
-	if action_id == hash("touch") and action.pressed then
+	msg.post("/manager#manager", "get_scene")
+	if action_id == hash("touch") and action.pressed and scene == "main" then
 		plant(convert.screen_to_world(action.x, action.y, action.x, "/camera#camera"))
 		harvest(convert.screen_to_world(action.x, action.y, action.x, "/camera#camera"))
 	end

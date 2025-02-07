@@ -1,0 +1,65 @@
+script: "/scripts/gui/shop.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+textures {
+  name: "inventory"
+  texture: "/assets/atlasses/inventory.atlas"
+}
+nodes {
+  position {
+    x: 638.0
+    y: 358.0
+  }
+  size {
+    x: 1300.0
+    y: 750.0
+  }
+  color {
+    x: 0.2
+    y: 0.2
+    z: 0.2
+  }
+  type: TYPE_BOX
+  id: "bg"
+  inherit_alpha: true
+  alpha: 0.9
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 158.0
+    y: 563.0
+  }
+  scale {
+    x: 5.0
+    y: 5.0
+  }
+  type: TYPE_BOX
+  texture: "inventory/wheat"
+  id: "wheat"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 639.0
+    y: 563.0
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "Get 2 wheat seeds (Money system coming soon)"
+  font: "default"
+  id: "text"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

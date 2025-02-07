@@ -1,0 +1,69 @@
+local nodes = {}
+local count = 0 -- TIP: Used for temporary item count during operation
+local operation -- TIP: Used for operation identification
+
+local function init_gui()
+	nodes.bg = gui.get_node("bg")
+	nodes.wheat = gui.get_node("wheat")
+end
+
+local function complete_operation()
+	if operation == "sell_wheat" then
+		if count > 0 then
+			msg.post("/player#inventory", "remove", {2})
+			msg.post("/player#inventory", "add", {1, 2})
+			count = 0
+			print("Completed operation sell_wheat operation")
+		end
+	end
+	operation = nil
+end
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	init_gui()
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("disable") then
+		for k, v in pairs(nodes) do
+			gui.set_enabled(v, false)
+		end
+	end
+	if message_id == hash("enable") then
+		for k, v in pairs(nodes) do
+			gui.set_enabled(v, true)
+		end
+	end
+	if message_id == hash("count_res") then
+		count = message[1]
+		complete_operation()
+	end
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("touch") and action.pressed then
+		if gui.pick_node(nodes.wheat, action.x, action.y) then
+			msg.post("/player#inventory", "get", {2})
+			operation = "sell_wheat"
+		end
+	end
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end
