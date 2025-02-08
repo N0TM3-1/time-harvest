@@ -3,40 +3,24 @@ fonts {
   name: "default"
   font: "/builtins/fonts/default.font"
 }
+textures {
+  name: "gui"
+  texture: "/assets/atlasses/gui.atlas"
+}
 nodes {
   position {
     x: 640.0
     y: 311.0
   }
-  size {
-    x: 200.0
-    y: 100.0
+  scale {
+    x: 5.0
+    y: 5.0
   }
   type: TYPE_BOX
+  texture: "gui/play"
   id: "play"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
-}
-nodes {
-  scale {
-    x: 2.0
-    y: 2.0
-  }
-  size {
-    x: 100.0
-    y: 50.0
-  }
-  color {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  type: TYPE_TEXT
-  text: "Play"
-  font: "default"
-  id: "text"
-  parent: "play"
-  inherit_alpha: true
 }
 nodes {
   position {

@@ -17,9 +17,11 @@ local function complete_operation()
 			count = 0
 		end
 	elseif operation == "buy_seeds" then
-		msg.post("/player#inventory", "add", {1})
-		msg.post("/player#money", "remove", {1})
-		count = 0
+		if count > 0 then
+			msg.post("/player#inventory", "add", {1})
+			msg.post("/player#money", "remove", {1})
+			count = 0
+		end
 	end
 	print("Completed ".. operation .. " operation")
 	operation = nil

@@ -1,0 +1,4 @@
+images {
+  image: "/assets/environment/house.png"
+}
+extrude_borders: 2
