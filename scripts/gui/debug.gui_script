@@ -1,28 +1,12 @@
-local pos
-local zoom
-local speed
-local nodes = {}
+local fps
 
-local function init_gui()
-	nodes.pos = gui.get_node("location")
-	nodes.zoom = gui.get_node("zoom")
-	nodes.speed = gui.get_node("speed")
-end
-
-local function update_data(message_id, message)
-	if message_id == hash("position") then
-		gui.set_text(pos, "x:"..message.x.." y:"..message.y)
-	end
-	if message_id == hash("zoom") then
-		gui.set_text(zoom, "Camera zoom:" .. message[1])
-	end
-	if message_id == hash("speed") then
-		gui.set_text(speed, "Speed:" .. message[1])
-	end
-end
+local fps_res = 0
+local fps_accumulator = 0
+local frame_count = 0
+local sample_size = 30  -- Adjust this for more/less smoothing
 
 function init(self)
-	init_gui()
+	fps = gui.get_node("fps")
 end
 
 function final(self)
@@ -31,23 +15,28 @@ function final(self)
 	-- Remove this function if not needed
 end
 
+
+
 function update(self, dt)
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+    local current_fps = 1 / dt
+    fps_accumulator = fps_accumulator + current_fps
+    frame_count = frame_count + 1
+
+    if frame_count >= sample_size then
+        fps_res = fps_accumulator / sample_size
+        fps_accumulator = 0
+        frame_count = 0
+        fps_res = math.floor(fps_res)
+    	gui.set_text(fps, "FPS:"..fps_res)
+    end
 end
 
 function on_message(self, message_id, message, sender)
-	update_data()
 	if message_id == hash("enable") then
-		for k, v in pairs(nodes) do
-			gui.set_enabled(v, true)
-		end
+		gui.set_visible(fps, true)
 	end
 	if message_id == hash("disable") then
-		for k, v in pairs(nodes) do
-			gui.set_enabled(v, false)
-		end
+		gui.set_visible(fps, false)
 	end
 end
 
