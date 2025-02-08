@@ -7,6 +7,10 @@ textures {
   name: "inventory"
   texture: "/assets/atlasses/inventory.atlas"
 }
+textures {
+  name: "icons"
+  texture: "/assets/atlasses/icons.atlas"
+}
 nodes {
   position {
     x: 638.0
@@ -44,7 +48,7 @@ nodes {
 }
 nodes {
   position {
-    x: 639.0
+    x: 516.0
     y: 563.0
   }
   scale {
@@ -56,9 +60,77 @@ nodes {
     y: 100.0
   }
   type: TYPE_TEXT
-  text: "Get 2 wheat seeds (Money system coming soon)"
+  text: "Get 2 coins"
   font: "default"
-  id: "text"
+  id: "wheat_text"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 1137.0
+    y: 648.0
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+  }
+  type: TYPE_BOX
+  texture: "icons/coin"
+  id: "coin"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 1204.0
+    y: 649.0
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+  }
+  size {
+    x: 50.0
+    y: 50.0
+  }
+  type: TYPE_TEXT
+  text: "0"
+  font: "default"
+  id: "coins"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 158.0
+    y: 361.0
+  }
+  scale {
+    x: 5.0
+    y: 5.0
+  }
+  type: TYPE_BOX
+  texture: "inventory/seeds"
+  id: "wheat_seeds"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 516.0
+    y: 361.0
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "Buy for 1 coin"
+  font: "default"
+  id: "wheat_seeds_text"
   inherit_alpha: true
 }
 material: "/builtins/materials/gui.material"

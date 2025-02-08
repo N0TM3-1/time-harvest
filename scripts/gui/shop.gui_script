@@ -1,21 +1,27 @@
 local nodes = {}
-local count = 0 -- TIP: Used for temporary item count during operation
+local count = 0 -- TIP: Used for temporary counting during operation
 local operation -- TIP: Used for operation identification
 
 local function init_gui()
 	nodes.bg = gui.get_node("bg")
 	nodes.wheat = gui.get_node("wheat")
+	nodes.wheat_seeds = gui.get_node("wheat_seeds")
+	nodes.coins = gui.get_node("coins")
 end
 
 local function complete_operation()
 	if operation == "sell_wheat" then
 		if count > 0 then
 			msg.post("/player#inventory", "remove", {2})
-			msg.post("/player#inventory", "add", {1, 2})
+			msg.post("/player#money", "add", {2})
 			count = 0
-			print("Completed operation sell_wheat operation")
 		end
+	elseif operation == "buy_seeds" then
+		msg.post("/player#inventory", "add", {1})
+		msg.post("/player#money", "remove", {1})
+		count = 0
 	end
+	print("Completed ".. operation .. " operation")
 	operation = nil
 end
 
@@ -51,6 +57,14 @@ function on_message(self, message_id, message, sender)
 		count = message[1]
 		complete_operation()
 	end
+	if message_id == hash("coin_bal") then
+		count = message[1]
+		complete_operation()
+	end
+
+	if message_id == hash("coins") then
+		gui.set_text(nodes.coins, message[1])
+	end
 end
 
 function on_input(self, action_id, action)
@@ -58,6 +72,9 @@ function on_input(self, action_id, action)
 		if gui.pick_node(nodes.wheat, action.x, action.y) then
 			msg.post("/player#inventory", "get", {2})
 			operation = "sell_wheat"
+		elseif gui.pick_node(nodes.wheat_seeds, action.x, action.y) then
+			msg.post("/player#money", "get_coins")
+			operation = "buy_seeds"
 		end
 	end
 end

@@ -1,7 +1,4 @@
 images {
-  image: "/builtins/assets/images/logo/logo_256.png"
-}
-images {
-  image: "/builtins/assets/images/logo/logo_blue_256.png"
+  image: "/assets/sprites/player/player.png"
 }
 extrude_borders: 2

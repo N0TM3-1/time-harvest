@@ -15,10 +15,10 @@ end
 
 local function update_map()
 	for k, v in pairs(planted_tiles) do
+		tilemap.set_tile("#farm", "bg", v.x, v.y, v.state + 3)
 		if v.state < 3 then
 			v.state = v.state + 1
 		end
-		tilemap.set_tile("#farm", "bg", v.x, v.y, v.state + 3)
 	end
 	persist.create("changed_tiles", changed_tiles, true) --IMPORTANT: Possible problems in the future
 end
@@ -38,7 +38,7 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("planted") then
 		table.insert(changed_tiles, {x = message[1], y = message[2], state = 1, type = "crop"})
-		table.insert(planted_tiles, {x = message[1], y = message[2], state = 1, type = "crop"})
+		table.insert(planted_tiles, {x = message[1], y = message[2], state = 1})
 		update_map()
 	end
 
