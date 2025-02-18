@@ -14,5 +14,13 @@ embedded_instances {
   "  id: \"game\"\n"
   "  component: \"/proxies/game.collectionproxy\"\n"
   "}\n"
+  "components {\n"
+  "  id: \"house\"\n"
+  "  component: \"/proxies/house.collectionproxy\"\n"
+  "}\n"
+  "components {\n"
+  "  id: \"farm\"\n"
+  "  component: \"/proxies/farm.collectionproxy\"\n"
+  "}\n"
   ""
 }

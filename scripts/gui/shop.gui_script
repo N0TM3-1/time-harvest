@@ -12,14 +12,14 @@ end
 local function complete_operation()
 	if operation == "sell_wheat" then
 		if count > 0 then
-			msg.post("/player#inventory", "remove", {2})
-			msg.post("/player#money", "add", {2})
+			msg.post("farm:/player#inventory", "remove", {2})
+			msg.post("farm:/player#money", "add", {2})
 			count = 0
 		end
 	elseif operation == "buy_seeds" then
 		if count > 0 then
-			msg.post("/player#inventory", "add", {1})
-			msg.post("/player#money", "remove", {1})
+			msg.post("farm:/player#inventory", "add", {1})
+			msg.post("farm:/player#money", "remove", {1})
 			count = 0
 		end
 	end
@@ -72,10 +72,10 @@ end
 function on_input(self, action_id, action)
 	if action_id == hash("touch") and action.pressed then
 		if gui.pick_node(nodes.wheat, action.x, action.y) then
-			msg.post("/player#inventory", "get", {2})
+			msg.post("farm:/player#inventory", "get", {2})
 			operation = "sell_wheat"
 		elseif gui.pick_node(nodes.wheat_seeds, action.x, action.y) then
-			msg.post("/player#money", "get_coins")
+			msg.post("farm:/player#money", "get_coins")
 			operation = "buy_seeds"
 		end
 	end

@@ -1,4 +1,10 @@
 images {
   image: "/assets/icons/GUI/play.png"
 }
+images {
+  image: "/assets/icons/GUI/shop_in.png"
+}
+images {
+  image: "/assets/icons/GUI/shop_out.png"
+}
 extrude_borders: 2

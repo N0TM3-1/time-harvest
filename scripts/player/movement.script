@@ -15,6 +15,7 @@ local function update_input()
 	input_dir.x = (input_states.right and 1 or 0) - (input_states.left and 1 or 0)
 	input_dir.y = (input_states.up and 1 or 0) - (input_states.down and 1 or 0)
 end
+
 function move.x(self, dt)
 	-- Apply acceleration on key press
 	if input_dir.x ~= 0 then
@@ -67,7 +68,6 @@ function init(self)
 
 	pos_gui.x = go.get_position().x
 	pos_gui.y = go.get_position().y
-	msg.post("/gui#debug", "position", pos_gui)
 end
 
 function update(self, dt)
@@ -79,10 +79,6 @@ function update(self, dt)
 	-- Send position data to GUI
 	pos_gui.x = math.floor(go.get_position().x)
 	pos_gui.y = math.floor(go.get_position().y)
-	msg.post("/gui#debug", "position", pos_gui)
-	-- Send speed to GUI
-	local speed = math.floor(math.sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y)))
-	msg.post("/gui#debug", "speed", { speed })
 end
 
 local function update_key_press(var_table, key_name, action)

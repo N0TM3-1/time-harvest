@@ -31,7 +31,7 @@ end
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
-	msg.post("#inventory", "require")
+	timer.delay(1, false, function() msg.post("game:/player_manager#inventory", "require") end)
 end
 
 function on_message(self, message_id, message, sender)
@@ -47,8 +47,8 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
-	msg.post("/manager#manager", "get_scene")
-	if action_id == hash("touch") and action.pressed and scene == "main" then
+	msg.post("game:/manager#manager", "get_scene")
+	if action_id == hash("touch") and action.pressed and scene == "farm" then
 		plant(convert.screen_to_world(action.x, action.y, action.x, "/camera#camera"))
 		harvest(convert.screen_to_world(action.x, action.y, action.x, "/camera#camera"))
 	end

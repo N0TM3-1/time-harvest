@@ -7,9 +7,10 @@ local urls = {}
 
 local function broadcast()
     for k, v in pairs(urls) do
-        msg.post(v, "slot", { select })       -- Send selected slot to GUI
+        msg.post(v, "slot", { select })
+        -- print(v)
     end
-    select_id = item[select].id               -- Get the ID of the selected item
+    select_id = item[select].id                 -- Get the ID of the selected item
     for k, v in pairs(urls) do
         msg.post(v, "select_id", { select_id }) -- Send the selected item id
     end
@@ -51,14 +52,21 @@ end
 local function shift_inv(inventory)
     for i = 2, #inventory do
         if inventory[i - 1].id == 0 then
-            inventory[i - 1] = inventory[i]  -- Move item up
+            inventory[i - 1] = inventory[i]    -- Move item up
             inventory[i] = { id = 0, num = 0 } -- Clear old slot
         end
     end
 end
 
+local function clear_table(table)
+    for k, v in pairs(table) do
+        v = nil
+    end
+end
+
 function init(self)
     msg.post(".", "acquire_input_focus")
+    clear_table(urls)
     if not persist.exists("inventory") then
         for i = 1, 9 do
             item[i] = {}
@@ -79,7 +87,16 @@ end
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("require") then
-        table.insert(urls, sender)
+        if #message>0 then
+            if type(message[#message] == "userdata") then
+                print(#message, message[#message])
+                table.insert(urls, message[#message])
+            else
+                table.insert(urls, sender)
+            end
+        else
+            table.insert(urls, sender)
+        end
     end
     if message_id == hash("remove") then
         if message[2] == nil then
@@ -108,7 +125,7 @@ function on_message(self, message_id, message, sender)
                 end
             end
         else
-            for k,v in pairs(item) do
+            for k, v in pairs(item) do
                 if v.id == 0 or v.id == message[1] then
                     v.id = message[1]
                     v.num = v.num + message[2]

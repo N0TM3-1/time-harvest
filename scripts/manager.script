@@ -1,13 +1,25 @@
-local scene = "main" -- Current scene
+require 'modules.switch'
+
+local scene = "farm" -- Current scene
+local switching = false
+local switch_msg={}
+local urls = {}      -- URLs for requiring objects
+
+local function broadcast(message_id, message)
+    for k, v in pairs(urls) do
+        msg.post(v, message_id, message)
+    end
+end
 
 function init(self)
     msg.post(".", "acquire_input_focus")
     msg.post("/gui#shop", "disable")
+    msg.post("main:/go#farm", "load")
 end
 
 function on_input(self, action_id, action)
     if action_id == hash("e") and action.pressed then
-        if scene == "main" then
+        if scene == "farm" then
             msg.post("/gui", "disable")
             msg.post("/gui#shop", "enable")
             scene = "shop"
@@ -20,7 +32,26 @@ function on_input(self, action_id, action)
 end
 
 function on_message(self, message_id, message, sender)
-    if message_id == hash("get_scene") then
-        msg.post(sender, "scene", {scene})
+    if message_id == hash("require") then
+        table.insert(urls, sender)
     end
+    if message_id == hash("get_scene") then
+        msg.post(sender, "scene", { scene })
+    end
+    if message_id == hash("switch") then
+        switch_msg = message
+        print("Recieved switch message for scene " .. message[2])
+        msg.post("main:/go" .. message[2], "load")
+        switching = true
+        print(switching)
+    end
+    if message_id == hash("proxy_loaded") and switching then 
+        print("Started switch")
+        switch.change("main:/go".. switch_msg[1], sender)
+        scene = switch_msg[3]
+        switching = false
+    elseif message_id == hash("proxy_loaded") and not switching then
+        switch.load(sender)
+    end
+    broadcast("scene", { scene })
 end

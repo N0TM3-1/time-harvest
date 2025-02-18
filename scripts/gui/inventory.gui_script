@@ -39,7 +39,9 @@ end
 function init(self)
 	msg.post(".", "acquire_input_focus")
 	init_gui()
-	msg.post("/player#inventory", "require")
+	timer.delay(0.01, false, function()
+		msg.post("farm:/player#inventory", "require")
+	end)
 end
 
 function update(self, dt)

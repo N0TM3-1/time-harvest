@@ -1,9 +1,7 @@
-require 'modules.switch'
+local scene
 
 function init(self)
-	-- Add initialization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	msg.post("game:/manager", "require")
 end
 
 function final(self)
@@ -28,8 +26,15 @@ function fixed_update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("trigger_response") and message.enter then
-		print("PLAYER ENTERED HOUSE")
+	if message_id == hash("scene") then
+		print("recieved scene:", message[1])
+		scene = message[1]
+	elseif message_id == hash("trigger_response") and message.enter and scene == "farm" then
+		print("Player entered house")
+		msg.post("game:/manager#manager", "switch", {"#farm", "#house", "house"}) -- TIP: message: {current scene id, next scene id, scene to be set}
+	elseif message_id == hash("trigger_response") and message.enter and scene == "house" then
+		print("Player exited house")
+		msg.post("game:/manager#manager", "switch", {"#house", "#farm", "farm"}) -- TIP: message: {current scene id, next scene id, scene to be set}
 	end
 end
 

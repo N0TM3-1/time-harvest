@@ -11,6 +11,10 @@ textures {
   name: "icons"
   texture: "/assets/atlasses/icons.atlas"
 }
+textures {
+  name: "gui"
+  texture: "/assets/atlasses/gui.atlas"
+}
 nodes {
   position {
     x: 638.0
@@ -48,21 +52,54 @@ nodes {
 }
 nodes {
   position {
-    x: 516.0
-    y: 563.0
+    x: 60.0
+    y: 4.2
   }
   scale {
-    x: 2.0
-    y: 2.0
+    x: 0.5
+    y: 0.5
+  }
+  type: TYPE_BOX
+  texture: "gui/shop_in"
+  id: "wheat_in"
+  parent: "wheat"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 81.200005
+    y: 1.0
+  }
+  scale {
+    x: 0.5
+    y: 0.5
+  }
+  type: TYPE_BOX
+  texture: "icons/coin"
+  id: "wheat_coin"
+  parent: "wheat"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 88.799995
+    y: 7.8
+  }
+  scale {
+    x: 0.3
+    y: 0.3
   }
   size {
-    x: 200.0
-    y: 100.0
+    x: 50.0
+    y: 50.0
   }
   type: TYPE_TEXT
-  text: "Get 2 coins"
+  text: "2"
   font: "default"
   id: "wheat_text"
+  parent: "wheat"
   inherit_alpha: true
 }
 nodes {
@@ -116,21 +153,54 @@ nodes {
 }
 nodes {
   position {
-    x: 516.0
-    y: 361.0
+    x: 60.0
+    y: 4.2
   }
   scale {
-    x: 2.0
-    y: 2.0
+    x: 0.5
+    y: 0.5
+  }
+  type: TYPE_BOX
+  texture: "gui/shop_out"
+  id: "wheat_seeds_out"
+  parent: "wheat_seeds"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 81.200005
+    y: 1.0
+  }
+  scale {
+    x: 0.5
+    y: 0.5
+  }
+  type: TYPE_BOX
+  texture: "icons/coin"
+  id: "wheat_seeds_coin"
+  parent: "wheat_seeds"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 88.799995
+    y: 7.8
+  }
+  scale {
+    x: 0.3
+    y: 0.3
   }
   size {
-    x: 200.0
-    y: 100.0
+    x: 50.0
+    y: 50.0
   }
   type: TYPE_TEXT
-  text: "Buy for 1 coin"
+  text: "1"
   font: "default"
   id: "wheat_seeds_text"
+  parent: "wheat_seeds"
   inherit_alpha: true
 }
 material: "/builtins/materials/gui.material"

@@ -12,8 +12,8 @@ local function load_save()
 end
 
 local function update_hud()
-	msg.post("/gui#hud", "coins", {balance})
-	msg.post("/gui#shop", "coins", {balance})
+	msg.post("game:/gui#hud", "coins", {balance})
+	msg.post("game:/gui#shop", "coins", {balance})
 end
 
 function init(self)
