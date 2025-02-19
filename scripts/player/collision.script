@@ -27,7 +27,6 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("scene") then
-		print("recieved scene:", message[1])
 		scene = message[1]
 	elseif message_id == hash("trigger_response") and message.enter and scene == "farm" then
 		print("Player entered house")
