@@ -1,3 +1,6 @@
+local debugger = require('debugger.debugger')
+debugger.start()
+
 require 'modules.switch'
 
 function init(self)
