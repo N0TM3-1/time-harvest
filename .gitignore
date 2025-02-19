@@ -11,3 +11,5 @@ Thumbs.db
 builtins
 .vscode
 /bundle
+
+/.defold/api
