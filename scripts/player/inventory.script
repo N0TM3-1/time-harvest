@@ -8,7 +8,6 @@ local urls = {}
 local function broadcast()
     for k, v in pairs(urls) do
         msg.post(v, "slot", { select })
-        -- print(v)
     end
     select_id = item[select].id                 -- Get the ID of the selected item
     for k, v in pairs(urls) do
@@ -89,7 +88,6 @@ function on_message(self, message_id, message, sender)
     if message_id == hash("require") then
         if #message>0 then
             if type(message[#message] == "userdata") then
-                print(#message, message[#message])
                 table.insert(urls, message[#message])
             else
                 table.insert(urls, sender)
