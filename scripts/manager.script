@@ -26,7 +26,7 @@ function on_input(self, action_id, action)
         elseif scene == "shop" then
             msg.post("/gui", "enable")
             msg.post("/gui#shop", "disable")
-            scene = "main"
+            scene = "farm"
         end
     end
 end
