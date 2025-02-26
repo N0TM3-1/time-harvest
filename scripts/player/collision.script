@@ -2,6 +2,7 @@ local scene
 
 function init(self)
 	msg.post("game:/manager", "require")
+	self.correction = vmath.vector3()
 end
 
 function final(self)
@@ -11,9 +12,7 @@ function final(self)
 end
 
 function update(self, dt)
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	self.correction = vmath.vector3()
 end
 
 function fixed_update(self, dt)
@@ -28,12 +27,21 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("scene") then
 		scene = message[1]
+	elseif message_id == hash("contact_point_response") and scene == "house" then
+		if message.distance > 0 then
+			local proj = vmath.project(self.correction, message.normal * message.distance)
+			if proj < 1 then
+				local comp = (message.distance - message.distance * proj) * message.normal
+				go.set_position(go.get_position() + comp)
+				self.correction = self.correction + comp
+			end
+		end
 	elseif message_id == hash("trigger_response") and message.enter and scene == "farm" then
 		print("Player entered house")
-		msg.post("game:/manager#manager", "switch", {"#farm", "#house", "house"}) -- TIP: message: {current scene id, next scene id, scene to be set}
+		msg.post("game:/manager#manager", "switch", { "#farm", "#house", "house" }) -- TIP: message: {current scene id, next scene id, scene to be set}
 	elseif message_id == hash("trigger_response") and message.enter and scene == "house" then
 		print("Player exited house")
-		msg.post("game:/manager#manager", "switch", {"#house", "#farm", "farm"}) -- TIP: message: {current scene id, next scene id, scene to be set}
+		msg.post("game:/manager#manager", "switch", { "#house", "#farm", "farm" }) -- TIP: message: {current scene id, next scene id, scene to be set}
 	end
 end
 
