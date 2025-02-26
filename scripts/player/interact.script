@@ -10,12 +10,10 @@ local scene
 local function plant(x, y, z)
 	tx, ty, tz = convert.world_to_tile(x, y, 32)
 	if select_id == 1 then
-		if tilemap.get_tile("/map#farm", "bg", tx, ty) <= 3 then
+		if tilemap.get_tile("/map#farm", "bg", tx, ty) == 3 then
 			msg.post("/map#tilemap", "planted", {tx, ty})
 			msg.post("#inventory", "remove", {select})
-		end
-	else
-		if tilemap.get_tile("/map#farm", "bg", tx, ty) <= 3 then
+		elseif tilemap.get_tile("/map#farm", "bg", tx, ty) <= 3 then
 			msg.post("/map#tilemap", "till", {tx, ty})
 		end
 	end
