@@ -10,7 +10,7 @@ textures {
 nodes {
   position {
     x: 640.0
-    y: 311.0
+    y: 261.0
   }
   scale {
     x: 5.0
@@ -19,27 +19,9 @@ nodes {
   type: TYPE_BOX
   texture: "gui/play"
   id: "play"
+  layer: "foreground"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
-}
-nodes {
-  position {
-    x: 640.0
-    y: 630.0
-  }
-  scale {
-    x: 5.0
-    y: 5.0
-  }
-  size {
-    x: 100.0
-    y: 50.0
-  }
-  type: TYPE_TEXT
-  text: "Time Harvest"
-  font: "default"
-  id: "title"
-  inherit_alpha: true
 }
 nodes {
   position {
@@ -58,7 +40,43 @@ nodes {
   text: "#this-is-dumi on Slack"
   font: "default"
   id: "text1"
+  layer: "foreground"
   inherit_alpha: true
+}
+nodes {
+  position {
+    x: 640.0
+    y: 566.0
+  }
+  scale {
+    x: 5.0
+    y: 5.0
+  }
+  type: TYPE_BOX
+  texture: "gui/title"
+  id: "title"
+  layer: "foreground"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 640.0
+    y: 363.0
+    z: -1.0
+  }
+  type: TYPE_BOX
+  texture: "gui/bg"
+  id: "bg"
+  layer: "background"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+layers {
+  name: "background"
+}
+layers {
+  name: "foreground"
 }
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT

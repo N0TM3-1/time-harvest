@@ -71,6 +71,7 @@ embedded_instances {
 embedded_instances {
   id: "player"
   children: "camera"
+  children: "sounds"
   data: "components {\n"
   "  id: \"collision\"\n"
   "  component: \"/scripts/player/collision.script\"\n"
@@ -191,4 +192,27 @@ embedded_instances {
   position {
     z: 1.0
   }
+}
+embedded_instances {
+  id: "sounds"
+  data: "embedded_components {\n"
+  "  id: \"walk\"\n"
+  "  type: \"sound\"\n"
+  "  data: \"sound: \\\"/assets/sounds/walking.wav\\\"\\n"
+  "looping: 1\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"plant\"\n"
+  "  type: \"sound\"\n"
+  "  data: \"sound: \\\"/assets/sounds/plant.wav\\\"\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"harvest\"\n"
+  "  type: \"sound\"\n"
+  "  data: \"sound: \\\"/assets/sounds/harvest.wav\\\"\\n"
+  "\"\n"
+  "}\n"
+  ""
 }
