@@ -7,14 +7,24 @@ local select_id
 
 local scene
 
+local INTERACT_DISTANCE = 64 -- Adjust based on your tile size
+
+function can_interact(player_pos, tile_pos)
+	local dx = player_pos.x - tile_pos.x
+	local dy = player_pos.y - tile_pos.y
+	local distance = math.sqrt(dx * dx + dy * dy) -- Pythagorean theorem
+	return distance <= INTERACT_DISTANCE
+end
+
 local function plant(x, y, z)
 	tx, ty, tz = convert.world_to_tile(x, y, 32)
 	if select_id == 1 then
 		if tilemap.get_tile("/map#farm", "bg", tx, ty) == 3 then
-			msg.post("/map#tilemap", "planted", {tx, ty})
-			msg.post("#inventory", "remove", {select})
+			msg.post("/map#tilemap", "planted", { tx, ty })
+			msg.post("#inventory", "remove", { select })
+			sound.play("/sounds#plant")
 		elseif tilemap.get_tile("/map#farm", "bg", tx, ty) <= 3 then
-			msg.post("/map#tilemap", "till", {tx, ty})
+			msg.post("/map#tilemap", "till", { tx, ty })
 		end
 	end
 end
@@ -22,14 +32,19 @@ end
 local function harvest(x, y, z)
 	tx, ty, tz = convert.world_to_tile(x, y, 32)
 	if tilemap.get_tile("/map#farm", "bg", tx, ty) == 6 then
-		msg.post("/map#tilemap", "harvest", {tx, ty})
-		msg.post("#inventory", "add", {2})-- IMPORTANT message[1]:item ID; message[2]: item number
+		msg.post("/map#tilemap", "harvest", { tx, ty })
+		msg.post("#inventory", "add", { 2 }) -- IMPORTANT message[1]:item ID; message[2]: item number
+		sound.play("/sounds#harvest")
 	end
 end
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
 	timer.delay(1, false, function() msg.post("game:/player_manager#inventory", "require") end)
+end
+
+function update(self, dt)
+	player_pos = go.get_position()
 end
 
 function on_message(self, message_id, message, sender)
@@ -47,8 +62,10 @@ end
 function on_input(self, action_id, action)
 	msg.post("game:/manager#manager", "get_scene")
 	if action_id == hash("touch") and action.pressed and scene == "farm" then
-		plant(convert.screen_to_world(action.x, action.y, action.x, "/camera#camera"))
-		harvest(convert.screen_to_world(action.x, action.y, action.x, "/camera#camera"))
+		if can_interact(player_pos, vmath.vector3(convert.screen_to_world(action.x, action.y, 0, "/camera#camera"))) then
+			plant(convert.screen_to_world(action.x, action.y, 0, "/camera#camera"))
+			harvest(convert.screen_to_world(action.x, action.y, 0, "/camera#camera"))
+		end
 	end
 end
 

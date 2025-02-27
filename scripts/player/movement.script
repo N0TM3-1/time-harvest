@@ -9,6 +9,8 @@ local input_dir = vmath.vector3(0, 0, 0)
 local pos_gui = {}
 local move = {}
 
+local playing = false
+
 
 
 local function update_input()
@@ -87,6 +89,10 @@ local function update_key_press(var_table, key_name, action)
 	elseif action.released then
 		var_table[key_name] = false
 	end
+	if not playing then
+		sound.play("/sounds#walk")
+		playing = true
+	end
 end
 
 function on_input(self, action_id, action)
@@ -99,5 +105,9 @@ function on_input(self, action_id, action)
 		update_key_press(input_states, "up", action)
 	elseif action_id == hash("s") then
 		update_key_press(input_states, "down", action)
+	end
+	if action.released then
+		sound.stop("/sounds#walk")
+		playing = false
 	end
 end
