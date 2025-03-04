@@ -1,4 +1,5 @@
 local persist = require 'persist.persist'
+local ids = require 'modules.ids'
 
 local item = {}
 local select = 1
@@ -14,8 +15,9 @@ local function broadcast()
         msg.post(v, "select_id", { select_id }) -- Send the selected item id
     end
     for k, v in pairs(urls) do
-        msg.post(v, "item", item) -- Send item table
+        msg.post(v, "item", item) -- TIP: Send item table
     end
+    pprint(urls)
 end
 
 local function select_slot(action_id)
@@ -72,12 +74,20 @@ function init(self)
             item[i].id = 0
             item[i].num = 0
         end
-        item[1].id = 1
+        item[1].id = ids.wheat_seeds -- TIP: Add 16 wheat
         item[1].num = 16
+        item[2].id = ids.plow -- TIP: Add 1 plow
+        item[2].num = 1
+        item[3].id = ids.scythe -- TIP: Add 1 scythe
+        item[3].num = 1
+        item[4].id = ids.watering_can -- TIP: Add 1 watering can
+        item[4].num = 1
+
         persist.create("inventory", item, false)
     else
         item = persist.load("inventory")
     end
+    msg.post("game:/gui#inventory", "initialized")
 end
 
 function on_input(self, action_id, action)
@@ -85,6 +95,7 @@ function on_input(self, action_id, action)
 end
 
 function on_message(self, message_id, message, sender)
+    pprint(message_id, message)
     if message_id == hash("require") then
         if #message>0 then
             if type(message[#message] == "userdata") then
@@ -145,7 +156,7 @@ function on_message(self, message_id, message, sender)
 end
 
 function update(self, dt)
-    for k, v in pairs(item) do
+    for k, v in pairs(item) do -- TIP: Remove items with 0 quantity
         if v.num == 0 then
             v.id = 0
         end

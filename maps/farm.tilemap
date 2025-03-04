@@ -4503,4 +4503,8 @@ layers {
     tile: 1
   }
 }
+layers {
+  id: "highlight"
+  z: 1.0
+}
 material: "/builtins/materials/tile_map.material"

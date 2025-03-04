@@ -21,6 +21,15 @@ local function change_item(id, number, slot_num) -- TODO: Change ID system
 	elseif id == 2 then
 		gui.set_texture(slot[slot_num], "inventory")
 		gui.play_flipbook(slot[slot_num], "wheat")
+	elseif id == 3 then
+		gui.set_texture(slot[slot_num], "inventory")
+		gui.play_flipbook(slot[slot_num], "plow")
+	elseif id == 4 then
+		gui.set_texture(slot[slot_num], "inventory")
+		gui.play_flipbook(slot[slot_num], "scythe")
+	elseif id == 5 then
+		gui.set_texture(slot[slot_num], "inventory")
+		gui.play_flipbook(slot[slot_num], "watering_can")
 	end
 	gui.set_text(label[slot_num], tostring(number))
 end
@@ -56,23 +65,23 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
+	--pprint(message_id, message, sender)
 	if message_id == hash("slot") then
 		select = message[1]
-	end
-	if message_id == hash("item") then
+elseif message_id == hash("item") then
 		for i=1, 9 do
 			change_item(message[i].id, message[i].num, i)
 		end
-	end
 
-	if message_id == hash("enable") then
+elseif message_id == hash("enable") then
 		for k, v in pairs(slot) do
 			gui.set_enabled(v, true)
 		end
-	end
-	if message_id == hash("disable") then
+elseif message_id == hash("disable") then
 		for k, v in pairs(slot) do
 			gui.set_enabled(v, false)
 		end
+	elseif message_id == hash("initialized") then
+		msg.post(sender, "require")
 	end
 end

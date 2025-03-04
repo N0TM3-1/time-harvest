@@ -1,9 +1,9 @@
 local persist = require 'persist.persist' -- Load the Defold Persist library for saving and loading data
 
-local changed_tiles = {} --TIP: Values: x (location); y (location); state (if not crop, tilemap ID); type
-local planted_tiles = {} --TIP: Values: x (location); y (location); state
+local changed_tiles = {}                  --TIP: Values: x (location); y (location); state (if not crop, tilemap ID); type
+local planted_tiles = {}                  --TIP: Values: x (location); y (location); state; watered
 
-local function save() --IMPORTANT: Possible problems in the future
+local function save()                     --IMPORTANT: Possible problems in the future
 	persist.create("changed_tiles", changed_tiles, true)
 	persist.create("planted_tiles", planted_tiles, true)
 end
@@ -16,7 +16,7 @@ local function load_map()
 			tilemap.set_tile("#farm", "bg", v.x, v.y, v.state) -- Non-harvestable tile states remain unchanged
 		end
 	end
-	for k,v in pairs(planted_tiles) do
+	for k, v in pairs(planted_tiles) do
 		tilemap.set_tile("#farm", "bg", v.x, v.y, v.state + 3)
 		print("Loaded planted tile at tilemap coordinates  " .. v.x .. ", " .. v.y)
 	end
@@ -24,9 +24,18 @@ end
 
 local function update_map()
 	for k, v in pairs(planted_tiles) do
-		tilemap.set_tile("#farm", "bg", v.x, v.y, v.state + 3)
-		if v.state < 3 then
+		if v.watered and v.state < 3 then
+			local tile_info = tilemap.get_tile_info("#farm", "bg", v.y, v.x)
+			tilemap.set_tile("#farm", "bg", v.x, v.y, (tile_info.index + 3))
+		end
+		if v.state ~= 3 and v.watered then
+			tilemap.set_tile("#farm", "bg", v.x, v.y, v.state + 6)
+		else
+			tilemap.set_tile("#farm", "bg", v.x, v.y, v.state + 3)
+		end
+		if v.state < 3 and v.watered then
 			v.state = v.state + 1
+			v.watered = false
 		end
 	end
 	save()
@@ -51,14 +60,14 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("planted") then
-		table.insert(changed_tiles, {x = message[1], y = message[2], state = 1, type = "crop"})
-		table.insert(planted_tiles, {x = message[1], y = message[2], state = 1})
+		table.insert(changed_tiles, { x = message[1], y = message[2], state = 1, type = "crop" })
+		table.insert(planted_tiles, { x = message[1], y = message[2], state = 1, watered = false })
 		update_map()
 		save()
 	elseif message_id == hash("harvest") then
 		-- Reset the tile to a harvested state
 		tilemap.set_tile("#farm", "bg", message[1], message[2], 2)
-	
+
 		for k, v in pairs(planted_tiles) do
 			if v.x == message[1] and v.y == message[2] then
 				table.remove(planted_tiles, k)
@@ -68,15 +77,31 @@ function on_message(self, message_id, message, sender)
 		for k, v in pairs(changed_tiles) do
 			if v.x == message[1] and v.y == message[2] and v.type == "crop" then
 				table.remove(changed_tiles, k)
-				break 
+				break
 			end
-		end	
+		end
 		save()
 	elseif message_id == hash("till") then
 		tilemap.set_tile("#farm", "bg", message[1], message[2], 3)
-		table.insert(changed_tiles, {x = message[1], y = message[2], state = 3, type = "tilled"}) -- Add tiles to the changed_tiles table
+		table.insert(changed_tiles, { x = message[1], y = message[2], state = 3, type = "tilled" }) -- Add tiles to the changed_tiles table
 		update_map()
 		save()
+	elseif message_id == hash("water") then
+		for k, v in pairs(planted_tiles) do
+			if v.x == message[1] and v.y == message[2] then
+				v.watered = true
+				break
+			end
+		end
+		update_map()
+		save()
+	elseif message_id == hash("highlight") then
+		if message[1] then
+			tilemap.set_tile("#farm", "highlight", message[2], message[3], 11)
+			tilemap.set_tile("#farm", "highlight", message.x, message.y, 10)
+		else
+			tilemap.set_tile("#farm", "highlight", message.x, message.y, 10)
+		end
 	elseif message_id == hash("tick") then
 		update_map()
 	end

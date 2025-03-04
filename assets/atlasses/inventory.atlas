@@ -7,4 +7,13 @@ images {
 images {
   image: "/assets/sprites/items/wheat.png"
 }
+images {
+  image: "/assets/sprites/items/plow.png"
+}
+images {
+  image: "/assets/sprites/items/scythe.png"
+}
+images {
+  image: "/assets/sprites/items/watering_can.png"
+}
 extrude_borders: 2

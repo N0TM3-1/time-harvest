@@ -1,3 +1,5 @@
+local ids = require 'modules.ids'
+
 local nodes = {}
 local count = 0 -- TIP: Used for temporary counting during operation
 local operation -- TIP: Used for operation identification
@@ -12,13 +14,13 @@ end
 local function complete_operation()
 	if operation == "sell_wheat" then
 		if count > 0 then
-			msg.post("farm:/player#inventory", "remove", {2})
+			msg.post("farm:/player#inventory", "remove", {ids.wheat})
 			msg.post("farm:/player#money", "add", {2})
 			count = 0
 		end
 	elseif operation == "buy_seeds" then
 		if count > 0 then
-			msg.post("farm:/player#inventory", "add", {1})
+			msg.post("farm:/player#inventory", "add", {ids.wheat_seeds})
 			msg.post("farm:/player#money", "remove", {1})
 			count = 0
 		end

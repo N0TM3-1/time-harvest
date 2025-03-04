@@ -1,4 +1,5 @@
 require 'modules.convert'
+local ids = require 'modules.ids'
 
 local tx, ty, tz -- Tile x, Tile y, Tile z
 
@@ -9,32 +10,51 @@ local scene
 
 local INTERACT_DISTANCE = 64 -- Adjust based on your tile size
 
-function can_interact(player_pos, tile_pos)
+local current_highlight = {}
+
+local function set_highlight(x, y, z)
+	tx, ty, tz = convert.world_to_tile(x, y, 32)
+	if current_highlight.x ~= nil then
+		if current_tile ~= { tx, ty } then
+			msg.post("/map#tilemap", "highlight", { true, current_highlight.x, current_highlight.y, x = tx, y = ty })
+		end
+	else
+		msg.post("/map#tilemap", "highlight",
+			{ false, current = { current_highlight.x, current_highlight.y }, x = tx, y = ty })
+	end
+	current_tile = { x = tx, y = ty }
+	current_highlight = { x = tx, y = ty, z = tz }
+end
+
+local function can_interact(player_pos, tile_pos)
 	local dx = player_pos.x - tile_pos.x
 	local dy = player_pos.y - tile_pos.y
 	local distance = math.sqrt(dx * dx + dy * dy) -- Pythagorean theorem
 	return distance <= INTERACT_DISTANCE
 end
 
-local function plant(x, y, z)
+local function interact(x, y, z)
 	tx, ty, tz = convert.world_to_tile(x, y, 32)
-	if select_id == 1 then
+	if select_id == ids.wheat_seeds then
 		if tilemap.get_tile("/map#farm", "bg", tx, ty) == 3 then
 			msg.post("/map#tilemap", "planted", { tx, ty })
 			msg.post("#inventory", "remove", { select })
 			sound.play("/sounds#plant")
-		elseif tilemap.get_tile("/map#farm", "bg", tx, ty) <= 3 then
+		end
+	elseif select_id == ids.plow then
+		if tilemap.get_tile("/map#farm", "bg", tx, ty) <= 3 then
 			msg.post("/map#tilemap", "till", { tx, ty })
 		end
-	end
-end
-
-local function harvest(x, y, z)
-	tx, ty, tz = convert.world_to_tile(x, y, 32)
-	if tilemap.get_tile("/map#farm", "bg", tx, ty) == 6 then
-		msg.post("/map#tilemap", "harvest", { tx, ty })
-		msg.post("#inventory", "add", { 2 }) -- IMPORTANT message[1]:item ID; message[2]: item number
-		sound.play("/sounds#harvest")
+	elseif select_id == ids.scythe then
+		if tilemap.get_tile("/map#farm", "bg", tx, ty) == 6 then
+			msg.post("/map#tilemap", "harvest", { tx, ty })
+			msg.post("#inventory", "add", { 2 }) -- IMPORTANT message[1]:item ID; message[2]: item number
+			sound.play("/sounds#harvest")
+		end
+	elseif select_id == ids.watering_can then
+		if tilemap.get_tile("/map#farm", "bg", tx, ty) > 3 then
+			msg.post("/map#tilemap", "water", { tx, ty })
+		end
 	end
 end
 
@@ -61,16 +81,10 @@ end
 
 function on_input(self, action_id, action)
 	msg.post("game:/manager#manager", "get_scene")
-	if action_id == hash("touch") and action.pressed and scene == "farm" then
-		if can_interact(player_pos, vmath.vector3(convert.screen_to_world(action.x, action.y, 0, "/camera#camera"))) then
-			plant(convert.screen_to_world(action.x, action.y, 0, "/camera#camera"))
-			harvest(convert.screen_to_world(action.x, action.y, 0, "/camera#camera"))
+	if can_interact(player_pos, vmath.vector3(convert.screen_to_world(action.x, action.y, 0, "/camera#camera"))) then
+		set_highlight(convert.screen_to_world(action.x, action.y, 0, "/camera#camera"))
+		if action_id == hash("touch") and action.pressed and scene == "farm" then
+			interact(convert.screen_to_world(action.x, action.y, 0, "/camera#camera"))
 		end
 	end
-end
-
-function on_reload(self)
-	-- Add reload-handling code here
-	-- Learn more: https://defold.com/manuals/hot-reload/
-	-- Remove this function if not needed
 end
