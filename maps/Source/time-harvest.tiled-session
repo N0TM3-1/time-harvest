@@ -3,18 +3,27 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "house.tmx",
+    "activeFile": "farm.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "#ground": {
+            "dynamicWrapping": false
+        },
         "farm.tmx": {
-            "scale": 0.5,
+            "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 481,
-                "y": 479
+                "x": 1336,
+                "y": 880
             }
+        },
+        "farm.tmx#ground": {
+            "scaleInDock": 1
         },
         "ground.tsx": {
             "dynamicWrapping": true,
@@ -37,20 +46,18 @@
     },
     "last.exportedFilePath": "D:/Coding Stuff/Projects/My Games/Time Harvest/maps",
     "last.imagePath": "D:/Coding Stuff/Projects/My Games/Time Harvest/assets/interior",
-    "map.height": 15,
+    "map.height": 100,
     "map.lastUsedExportFilter": "Defold Tile Map (*.tilemap)",
     "map.lastUsedFormat": "tmx",
-    "map.width": 15,
+    "map.width": 100,
     "openFiles": [
-        "farm.tmx",
-        "house.tmx",
-        "interior.tsx"
+        "farm.tmx"
     ],
     "project": "time-harvest.tiled-project",
     "recentFiles": [
         "farm.tmx",
-        "interior.tsx",
         "house.tmx",
+        "interior.tsx",
         "ground.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",

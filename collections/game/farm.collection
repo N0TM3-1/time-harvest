@@ -49,8 +49,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 481.0
-    y: 501.0
+    x: 810.0
+    y: 812.0
   }
 }
 embedded_instances {
@@ -144,8 +144,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 482.0
-    y: 348.0
+    x: 811.0
+    y: 659.0
     z: 5.0
   }
 }
@@ -186,7 +186,7 @@ embedded_instances {
   "near_z: 0.1\\n"
   "far_z: 1000.0\\n"
   "orthographic_projection: 1\\n"
-  "orthographic_zoom: 7.0\\n"
+  "orthographic_zoom: 5.0\\n"
   "\"\n"
   "}\n"
   ""

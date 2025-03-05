@@ -82,10 +82,13 @@ function on_message(self, message_id, message, sender)
 		end
 		save()
 	elseif message_id == hash("till") then
-		tilemap.set_tile("#farm", "bg", message[1], message[2], 3)
-		table.insert(changed_tiles, { x = message[1], y = message[2], state = 3, type = "tilled" }) -- Add tiles to the changed_tiles table
-		update_map()
-		save()
+		local tile = tilemap.get_tile_info("#farm", "bg", message[1], message[2])
+		if tile.index == 2 then
+			tilemap.set_tile("#farm", "bg", message[1], message[2], 3)
+			table.insert(changed_tiles, { x = message[1], y = message[2], state = 3, type = "tilled" }) -- Add tiles to the changed_tiles table
+			update_map()
+			save()
+		end
 	elseif message_id == hash("water") then
 		for k, v in pairs(planted_tiles) do
 			if v.x == message[1] and v.y == message[2] then
@@ -97,7 +100,7 @@ function on_message(self, message_id, message, sender)
 		save()
 	elseif message_id == hash("highlight") then
 		if message[1] then
-			tilemap.set_tile("#farm", "highlight", message[2], message[3], 11)
+			tilemap.set_tile("#farm", "highlight", message[2], message[3], 0)
 			tilemap.set_tile("#farm", "highlight", message.x, message.y, 10)
 		else
 			tilemap.set_tile("#farm", "highlight", message.x, message.y, 10)
