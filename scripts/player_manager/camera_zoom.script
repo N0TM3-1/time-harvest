@@ -1,0 +1,11 @@
+local zoom
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("zoom") then
+        zoom = message[1]
+    elseif message_id == hash("req_zoom") then
+        if zoom then
+            msg.post(sender, "zoom", { zoom })
+        end
+    end
+end

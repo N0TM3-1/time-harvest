@@ -38,5 +38,9 @@ embedded_instances {
   "  id: \"inventory\"\n"
   "  component: \"/scripts/player_manager/inventory.script\"\n"
   "}\n"
+  "components {\n"
+  "  id: \"camera_zoom\"\n"
+  "  component: \"/scripts/player_manager/camera_zoom.script\"\n"
+  "}\n"
   ""
 }

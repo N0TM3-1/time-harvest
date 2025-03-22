@@ -65,7 +65,6 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	--pprint(message_id, message, sender)
 	if message_id == hash("slot") then
 		select = message[1]
 elseif message_id == hash("item") then
