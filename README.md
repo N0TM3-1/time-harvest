@@ -18,7 +18,7 @@ In **Time Harvest**, players embark on a farming journey that spans across eras.
 **Time Harvest** is designed to be accessible and fun for everyone. Whether you're a casual gamer looking for a relaxing farming experience or a strategist eager to optimize your farm's progression, this game has something for you. Its simple mechanics, combined with the novelty of time travel, create a unique and enjoyable farming adventure.
 
 ## Development Goals
-My goal is to create an immersive, languageless farming game that is:
+My goal is to create an immersive farming game that is:
 1. **Simple to Learn:** Easy mechanics that are intuitive for beginners.
 2. **Engaging:** Era progression and exploration keep the gameplay fresh.
 
